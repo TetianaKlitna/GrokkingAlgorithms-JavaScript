@@ -1,7 +1,7 @@
 // time O(n)
 // space O(n)
 const same = (arr1, arr2) => {
-    
+
     if(arr1.length !== arr2.length){
         return false;
     }
@@ -27,3 +27,9 @@ const same = (arr1, arr2) => {
 console.log(same([1,2,3], [4,1,9]) === true); 
 console.log(same([1,2,3], [1,9]) === false);
 console.log(same([1,2,1], [4,4,1]) === false);
+
+// Frequency Counter Pattern
+
+// Write a function called same, which accept 2 arrays.
+// The function shoul return true if every value in the array has it's corresponding value squared
+// in the second array. The freq of values must be the same.
