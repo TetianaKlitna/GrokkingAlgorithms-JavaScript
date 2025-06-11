@@ -2,8 +2,8 @@ const bubbleSort = (arr, comparator) => {
   if (typeof comparator !== 'function') {
     comparator = (a, b) => a - b;
   }
-  let noSwaps = true;
   for (let i = 0; i < arr.length - 1; i++) {
+    let noSwaps = true;
     for (let j = 0; j < arr.length - 1 - i; j++) {
       if (comparator(arr[j], arr[j + 1]) > 0) {
         [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
