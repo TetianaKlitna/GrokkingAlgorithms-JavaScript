@@ -139,8 +139,7 @@ class SinglyLinkedList {
     } else {
       const prev = this.get(index - 1);
       const removedNode = prev.next;
-      const next = prev.next.next;
-      prev.next = next;
+      prev.next = removedNode.next;
       this.length--;
       return removedNode;
     }
