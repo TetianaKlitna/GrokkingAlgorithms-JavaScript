@@ -128,14 +128,30 @@ class SinglyLinkedList {
       return true;
     }
   }
+
+  remove(index) {
+    if (index < 0 || index >= this.length) {
+      return undefined;
+    } else if (index === 0) {
+      return this.shift();
+    } else if (index === this.length - 1) {
+      return this.pop();
+    } else {
+      const prev = this.get(index - 1);
+      const removedNode = prev.next;
+      const next = prev.next.next;
+      prev.next = next;
+      this.length--;
+      return removedNode;
+    }
+  }
 }
 
 const list = new SinglyLinkedList();
 list.unshift('newVal');
 list.unshift('secondVal');
-console.log(list);
 list.insert(1, 'insert!');
-console.log(list);
+console.log(list.remove(2));
 let curr = list.head;
 while (curr) {
   console.log(curr.val);
