@@ -144,14 +144,31 @@ class SinglyLinkedList {
       return removedNode;
     }
   }
+
+  reverse() {
+    let curr = this.head;
+    [this.head, this.tail] = [this.tail, this.head];
+    let currNode = null;
+    while (curr) {
+      const nextNode = curr.next;
+      curr.next = currNode;
+
+      currNode = curr;
+      curr = nextNode;
+    }
+
+    return this;
+  }
 }
 
 const list = new SinglyLinkedList();
-list.unshift('newVal');
-list.unshift('secondVal');
-list.insert(1, 'insert!');
-console.log(list.remove(2));
-let curr = list.head;
+list.push(1);
+list.push(2);
+list.push(3);
+list.push(4);
+list.push(5);
+
+let curr = list.reverse().head;
 while (curr) {
   console.log(curr.val);
   curr = curr.next;
