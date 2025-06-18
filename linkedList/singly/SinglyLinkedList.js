@@ -59,14 +59,56 @@ class SinglyLinkedList {
     }
 
     this.length--;
-    
+
     const shiftedNode = this.head;
     this.head = shiftedNode.next;
-    if(this.length === 0){
+    if (this.length === 0) {
       this.tail = null;
     }
 
     return shiftedNode;
+  }
+
+  unshift(val) {
+    const newNode = new Node(val);
+
+    newNode.next = this.head;
+    this.head = newNode;
+    if (this.length === 0) {
+      this.tail = newNode;
+    }
+
+    this.length++;
+
+    return this;
+  }
+
+  get(index) {
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+    let i = 0;
+    let curr = this.head;
+    while (curr) {
+      if (i === index) {
+        return curr;
+      }
+      i++;
+      curr = curr.next;
+    }
+
+    return null;
+  }
+
+  set(index, value) {
+    const foundNode = this.get(index);
+    if (!foundNode) {
+      return false;
+    }
+
+    foundNode.val = value;
+
+    return true;
   }
 }
 
@@ -84,3 +126,9 @@ console.log(list);
 console.log(list.shift());
 console.log(list.shift());
 console.log(list);
+list.unshift('newVal');
+list.unshift('secondVal');
+console.log(list);
+console.log(list.get(0));
+console.log(list.set(0, 'Hello'));
+console.log(list.get(0));
