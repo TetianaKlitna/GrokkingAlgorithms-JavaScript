@@ -146,7 +146,7 @@ class DoublyLinkedList {
       return this.shift();
     } else if (index == this.length - 1) {
       return this.pop();
-    } 
+    }
 
     const nodeCurr = this.get(index);
     let nodePrev = nodeCurr.prev;
@@ -154,16 +154,34 @@ class DoublyLinkedList {
 
     nodePrev.next = nodeNext;
     nodeNext.prev = nodePrev;
+
+    nodeCurr.next = null;
+    nodeCurr.prev = null;
+
     this.length--;
     return nodeCurr;
   }
+
+  reverse() {
+    let curr = this.tail;
+    while (curr) {
+      const nodePrev = curr.prev;
+      [curr.prev, curr.next] = [curr.next, curr.prev];
+      curr = nodePrev;
+    }
+    [this.head, this.tail] = [this.tail, this.head];
+    return this;
+  }
 }
 
-var doublyLinkedList = new DoublyLinkedList();
+// 1 -> 2 -> 3 -> 4 -> 5
+// 5 next = null previous 4 next  = 4 previous = null
+
+let doublyLinkedList = new DoublyLinkedList();
 doublyLinkedList.push(5).push(10).push(15).push(20);
-console.log(doublyLinkedList.remove(2).val === 15); // 15
-console.log(doublyLinkedList.remove(100) === undefined); // undefined
-console.log(doublyLinkedList.length === 3); // 3
-console.log(doublyLinkedList.head.val === 5); // 5
-console.log(doublyLinkedList.head.next.val === 10); // 10
-console.log(doublyLinkedList.head.next.next.val === 20); // 20
+doublyLinkedList.reverse(); // singlyLinkedList;
+console.log(doublyLinkedList.length === 4); // 4
+console.log(doublyLinkedList.head.val === 20); // 20
+console.log(doublyLinkedList.head.next.val === 15); // 15
+console.log(doublyLinkedList.head.next.next.val === 10); // 10
+console.log(doublyLinkedList.head.next.next.next.val === 5); // 5
