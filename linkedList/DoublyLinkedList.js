@@ -115,39 +115,37 @@ class DoublyLinkedList {
     return false;
   }
 
-  insert(index, value){
-    if(index < 0 || index > this.length){
-        return false;
-    }else if(index === 0){
-        this.unshift(value);
-        return true;
-    }else if(index === this.length){
-        this.push(value);
-        return true;
+  insert(index, value) {
+    if (index < 0 || index > this.length) {
+      return false;
+    } else if (index === 0) {
+      this.unshift(value);
+      return true;
+    } else if (index === this.length) {
+      this.push(value);
+      return true;
     }
 
-       let node = this.get(index);
-       let insertedNode = new Node(value);
-       insertedNode.prev = node.prev;
-       node.prev.next = insertedNode;
-       insertedNode.next = node;
-       node.prev = insertedNode;
-       this.length++
-       return true;
+    let nodePrev = this.get(index - 1);
+    let nodeNext = nodePrev.next;
+    let nodeCurr = new Node(value);
+    nodeCurr.prev = nodePrev;
+    nodeCurr.next = nodeNext;
+    nodePrev.next = nodeCurr;
+    nodeNext.prev = nodeCurr;
+
+    this.length++;
+    return true;
   }
 }
-// 0 1 2   | 3| 3 4 5
-// 3
 
-
-
-var doublyLinkedList = new DoublyLinkedList;
+var doublyLinkedList = new DoublyLinkedList();
 doublyLinkedList.push(5).push(10).push(15).push(20);
-doublyLinkedList.insert(2,12); // true
-doublyLinkedList.insert(100,12); // false
-doublyLinkedList.length // 5
-doublyLinkedList.head.val // 5
-doublyLinkedList.head.next.val // 10
-doublyLinkedList.head.next.next.val // 12
-doublyLinkedList.head.next.next.next.val // 15
-doublyLinkedList.head.next.next.next.next.val // 20
+doublyLinkedList.insert(2, 12); // true
+doublyLinkedList.insert(100, 12); // false
+doublyLinkedList.length; // 5
+doublyLinkedList.head.val; // 5
+doublyLinkedList.head.next.val; // 10
+doublyLinkedList.head.next.next.val; // 12
+doublyLinkedList.head.next.next.next.val; // 15
+doublyLinkedList.head.next.next.next.next.val; // 20
