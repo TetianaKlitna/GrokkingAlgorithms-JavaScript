@@ -41,6 +41,29 @@ class BST {
     }
     return this;
   }
+
+  find(value){
+
+    if(!this.root){
+      return undefined;
+    }
+
+    let curr = this.root;
+
+    while(curr){
+      if(value < curr.value){
+        curr = curr.left;
+      }else if(curr.value < value){
+        curr = curr.right;
+      }else{
+        return curr;
+      }
+    }
+
+    return undefined
+
+  }
+
 }
 
 let bst = new BST();
@@ -48,7 +71,9 @@ bst.insert(5);
 bst.insert(10);
 bst.insert(15);
 bst.insert(6);
+bst.insert(6);
 console.log(bst.root.value);
 console.log(bst.root.right.value);
 console.log(bst.root.right.right.value);
 console.log(bst.root.right.left.value);
+console.log(bst.find(10));
