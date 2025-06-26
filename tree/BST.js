@@ -117,13 +117,12 @@ class BinarySearchTree {
     }
 
     while (curr) {
-
       if (largest < curr.value) {
         secondLargest = largest;
         largest = Math.max(largest, curr.value);
       }
-      
-      if(curr.value < largest && curr.value > secondLargest){
+
+      if (curr.value < largest && curr.value > secondLargest) {
         secondLargest = curr.value;
       }
 
@@ -138,15 +137,44 @@ class BinarySearchTree {
 
     return secondLargest === -Infinity ? undefined : secondLargest;
   }
+
+  isBalanced() {
+    const dfs = (node) => {
+
+    if (!node) return 0;                
+
+    const lh = dfs(node.left);
+    if (lh === -1) return -1;
+
+    const rh = dfs(node.right);
+    if (rh === -1) return -1; 
+
+    if (Math.abs(lh - rh) > 1) return -1;
+
+    return Math.max(lh, rh) + 1; 
+  };
+
+  return dfs(this.root) !== -1;
+  }
 }
+
+/*
+        15
+    10     20
+      12
+*/
 
 var binarySearchTree = new BinarySearchTree();
 binarySearchTree.insert(15);
 binarySearchTree.insert(20);
 binarySearchTree.insert(10);
-binarySearchTree.insert(17);
-console.log(binarySearchTree.findSecondLargest() === 17); // returns 17
+binarySearchTree.insert(12);
+console.log(binarySearchTree.isBalanced() === true); // true
 
 var binarySearchTree2 = new BinarySearchTree();
-binarySearchTree2.insert(10);
-console.log(binarySearchTree2.findSecondLargest() === undefined); // returns undefined
+binarySearchTree2.insert(5);
+console.log(binarySearchTree2.isBalanced() === true); // true
+binarySearchTree2.insert(6);
+console.log(binarySearchTree2.isBalanced() === true); // true
+binarySearchTree2.insert(7);
+console.log(binarySearchTree2.isBalanced() === false); // false
