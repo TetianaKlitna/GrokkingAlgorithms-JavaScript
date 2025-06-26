@@ -92,115 +92,61 @@ class BinarySearchTree {
             parentSuccessor.right = successor.right;
           }
         } else {
-
-          let node = curr.left? curr.left: curr.right? curr.right: null;
+          let node = curr.left ? curr.left : curr.right ? curr.right : null;
 
           if (!prev) {
             this.root = node;
-          }else if (prev.left === curr) {
+          } else if (prev.left === curr) {
             prev.left = node;
           } else {
             prev.right = node;
           }
-          
         }
         break;
       }
     }
   }
+
+  findSecondLargest() {
+    let largest = -Infinity;
+    let secondLargest = undefined;
+    let curr = this.root;
+
+    if (!curr) {
+      return undefined;
+    }
+
+    while (curr) {
+
+      if (largest < curr.value) {
+        secondLargest = largest;
+        largest = Math.max(largest, curr.value);
+      }
+      
+      if(curr.value < largest && curr.value > secondLargest){
+        secondLargest = curr.value;
+      }
+
+      if (curr.right) {
+        curr = curr.right;
+      } else if (curr.left) {
+        curr = curr.left;
+      } else {
+        break;
+      }
+    }
+
+    return secondLargest === -Infinity ? undefined : secondLargest;
+  }
 }
 
 var binarySearchTree = new BinarySearchTree();
-binarySearchTree
-  .insert(15)
-  .insert(20)
-  .insert(10)
-  .insert(12)
-  .insert(1)
-  .insert(5)
-  .insert(50);
-/*
-          15
-    10            20
-  1     12               50
-    5    
-*/
-binarySearchTree.remove(50);
-console.log(binarySearchTree.root.right.value === 20); // 20
-console.log(binarySearchTree.root.right.right === null); // null
-
-binarySearchTree.remove(5);
-console.log(binarySearchTree.root.left.left.value === 1); // 1
-console.log(binarySearchTree.root.left.left.right === null); // null
-
-binarySearchTree.remove(15);
-console.log(binarySearchTree.root.value === 20);
-console.log(binarySearchTree.root.right === null);
-
-var binarySearchTree = new BinarySearchTree();
 binarySearchTree.insert(15);
-binarySearchTree.remove(15);
-console.log(binarySearchTree.root === null);
+binarySearchTree.insert(20);
+binarySearchTree.insert(10);
+binarySearchTree.insert(17);
+console.log(binarySearchTree.findSecondLargest() === 17); // returns 17
 
-var binarySearchTree = new BinarySearchTree();
-binarySearchTree
-  .insert(15)
-  .insert(20)
-  .insert(10)
-  .insert(12)
-  .insert(1)
-  .insert(5)
-  .insert(50);
-
-binarySearchTree.remove(1);
-console.log(binarySearchTree.root.left.left.value === 5); // 5
-console.log(binarySearchTree.root.left.left.left === null); // null
-console.log(binarySearchTree.root.left.left.right === null); // null
-
-binarySearchTree.remove(20);
-console.log(binarySearchTree.root.right.value === 50); // 50
-console.log(binarySearchTree.root.right.right === null); // null
-console.log(binarySearchTree.root.right.left === null); // null
-
-var binarySearchTree = new BinarySearchTree();
-binarySearchTree
-  .insert(15)
-  .insert(20)
-  .insert(10)
-  .insert(12)
-  .insert(1)
-  .insert(5)
-  .insert(50)
-  .insert(60)
-  .insert(30)
-  .insert(25)
-  .insert(23)
-  .insert(24)
-  .insert(70);
-
-binarySearchTree.remove(10);
-console.log(binarySearchTree.root.left.value === 12); // 12
-console.log(binarySearchTree.root.left.left.value === 1); // 1
-console.log(binarySearchTree.root.left.left.right.value === 5); // 5
-
-binarySearchTree.remove(50);
-console.log(binarySearchTree.root.right.value === 20); // 20
-console.log(binarySearchTree.root.right.right.value === 60); // 60
-console.log(binarySearchTree.root.right.right.left.value === 30); // 30
-
-var binarySearchTree = new BinarySearchTree();
-binarySearchTree
-  .insert(22)
-  .insert(49)
-  .insert(85)
-  .insert(66)
-  .insert(95)
-  .insert(90)
-  .insert(100)
-  .insert(88)
-  .insert(93)
-  .insert(89);
-
-binarySearchTree.remove(85);
-console.log(binarySearchTree.root.right.right.value === 88); // 88
-console.log(binarySearchTree.root.right.right.right.left.left.value === 89); // 89
+var binarySearchTree2 = new BinarySearchTree();
+binarySearchTree2.insert(10);
+console.log(binarySearchTree2.findSecondLargest() === undefined); // returns undefined
