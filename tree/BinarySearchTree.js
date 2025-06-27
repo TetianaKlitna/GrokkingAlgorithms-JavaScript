@@ -140,41 +140,53 @@ class BinarySearchTree {
 
   isBalanced() {
     const dfs = (node) => {
+      if (!node) return 0;
 
-    if (!node) return 0;                
+      const lh = dfs(node.left);
+      if (lh === -1) return -1;
 
-    const lh = dfs(node.left);
-    if (lh === -1) return -1;
+      const rh = dfs(node.right);
+      if (rh === -1) return -1;
 
-    const rh = dfs(node.right);
-    if (rh === -1) return -1; 
+      if (Math.abs(lh - rh) > 1) return -1;
 
-    if (Math.abs(lh - rh) > 1) return -1;
+      return Math.max(lh, rh) + 1;
+    };
 
-    return Math.max(lh, rh) + 1; 
-  };
+    return dfs(this.root) !== -1;
+  }
 
-  return dfs(this.root) !== -1;
+  BFS() {
+    const queue = [];
+    const visited = [];
+
+    if (!this.root) {
+      return [];
+    }
+    queue.push(this.root);
+    while (queue.length !== 0) {
+      const node = queue.shift();
+      visited.push(node.value);
+      if (node.left) {
+        queue.push(node.left);
+      }
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+
+    return visited;
   }
 }
-
-/*
-        15
-    10     20
-      12
-*/
-
-var binarySearchTree = new BinarySearchTree();
-binarySearchTree.insert(15);
-binarySearchTree.insert(20);
-binarySearchTree.insert(10);
-binarySearchTree.insert(12);
-console.log(binarySearchTree.isBalanced() === true); // true
-
-var binarySearchTree2 = new BinarySearchTree();
-binarySearchTree2.insert(5);
-console.log(binarySearchTree2.isBalanced() === true); // true
-binarySearchTree2.insert(6);
-console.log(binarySearchTree2.isBalanced() === true); // true
-binarySearchTree2.insert(7);
-console.log(binarySearchTree2.isBalanced() === false); // false
+/*  10
+   6   15
+  3  8    20
+ */
+var tree = new BinarySearchTree();
+tree.insert(10);
+tree.insert(6);
+tree.insert(15);
+tree.insert(3);
+tree.insert(8);
+tree.insert(20);
+console.log(tree.BFS());
