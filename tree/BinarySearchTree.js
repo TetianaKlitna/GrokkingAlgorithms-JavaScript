@@ -200,25 +200,43 @@ class BinarySearchTree {
     return visited;
   }
 
-  DFSPostOrder(){
-     const visited = [];
-     if(!this.root) return[];
+  DFSPostOrder() {
+    const visited = [];
+    if (!this.root) return [];
 
-     const helper = (node) => {
-         if(node.left){
-          helper(node.left)
-         }
-         if(node.right){
-          helper(node.right);
-         }
-         visited.push(node.value)
-     }
+    const helper = (node) => {
+      if (node.left) {
+        helper(node.left);
+      }
+      if (node.right) {
+        helper(node.right);
+      }
+      visited.push(node.value);
+    };
 
-     helper(this.root);
+    helper(this.root);
 
-     return visited;
+    return visited;
   }
 
+  DFSInOrder() {
+    const visited = [];
+    if (!this.root) return visited;
+
+    const helper = (node) => {
+      if (node.left) {
+        helper(node.left);
+      }
+      visited.push(node.value);
+      if (node.right) {
+        helper(node.right);
+      }
+    };
+
+    helper(this.root);
+
+    return visited;
+  }
 }
 /*  10
    6   15
@@ -231,4 +249,4 @@ tree.insert(15);
 tree.insert(3);
 tree.insert(8);
 tree.insert(20);
-console.log(tree.DFSPostOrder());
+console.log(tree.DFSInOrder());
