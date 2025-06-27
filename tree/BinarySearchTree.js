@@ -166,7 +166,7 @@ class BinarySearchTree {
     queue.push(this.root);
     while (queue.length !== 0) {
       const node = queue.shift();
-      visited.push(node.value);
+      visited.push(node);
       if (node.left) {
         queue.push(node.left);
       }
