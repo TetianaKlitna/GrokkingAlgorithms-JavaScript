@@ -166,7 +166,7 @@ class BinarySearchTree {
     queue.push(this.root);
     while (queue.length !== 0) {
       const node = queue.shift();
-      visited.push(node);
+      visited.push(node.value);
       if (node.left) {
         queue.push(node.left);
       }
@@ -174,6 +174,28 @@ class BinarySearchTree {
         queue.push(node.right);
       }
     }
+
+    return visited;
+  }
+
+  DFSPreOrder() {
+    const visited = [];
+    let current = this.root;
+    if (!current) {
+      return [];
+    }
+
+    const helper = (node) => {
+      visited.push(node.value);
+      if (node.left) {
+        helper(node.left);
+      }
+      if (node.right) {
+        helper(node.right);
+      }
+    };
+
+    helper(current);
 
     return visited;
   }
@@ -189,4 +211,4 @@ tree.insert(15);
 tree.insert(3);
 tree.insert(8);
 tree.insert(20);
-console.log(tree.BFS());
+console.log(tree.DFSPreOrder());
