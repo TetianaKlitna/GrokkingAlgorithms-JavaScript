@@ -90,12 +90,17 @@ class PriorityQueue {
 }
 
 const priorityQueue = new PriorityQueue();
-priorityQueue.enqueue('1', 6).enqueue('2', 1).enqueue('3', 3);
-// for (let i = 0; i < priorityQueue.values.length; i++) {
-//   console.log(priorityQueue.values[i].val, priorityQueue.values[i].priority);
-// }
+priorityQueue
+  .enqueue('common cold', 5)
+  .enqueue('gunshot wound', 1)
+  .enqueue('high fewer', 4)
+  .enqueue('broken arm', 2)
+  .enqueue('glass in foot', 3);
+for (let i = 0; i < priorityQueue.values.length; i++) {
+  console.log(priorityQueue.values[i].val, priorityQueue.values[i].priority);
+}
 console.log(priorityQueue.dequeue().priority);
 console.log(priorityQueue.dequeue().priority);
-// for (let i = 0; i < priorityQueue.values.length; i++) {
-//   console.log(priorityQueue.values[i].val, priorityQueue.values[i].priority);
-// }
+for (let i = 0; i < priorityQueue.values.length; i++) {
+  console.log(priorityQueue.values[i].val, priorityQueue.values[i].priority);
+}
