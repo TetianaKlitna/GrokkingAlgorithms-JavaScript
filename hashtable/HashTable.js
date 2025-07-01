@@ -38,9 +38,38 @@ class HashTable {
     }
     return undefined;
   }
+
+  keys() {
+    const res = new Set();
+    for (let i = 0; i < this.keyMap.length; i++) {
+      if (!this.keyMap[i]) {
+        continue;
+      }
+      const temp = this.keyMap[i];
+      for (let j = 0; j < temp.length; j++) {
+        res.add(temp[j][0]);
+      }
+    }
+    return Array.from(res);
+  }
+
+  values() {
+    const res = new Set();
+    for (let i = 0; i < this.keyMap.length; i++) {
+      if (!this.keyMap[i]) {
+        continue;
+      }
+      const temp = this.keyMap[i];
+      for (let j = 0; j < temp.length; j++) {
+        res.add(temp[j][1]);
+      }
+    }
+    return Array.from(res);
+  }
 }
 
 const hashTable = new HashTable();
 hashTable.set('hello', 'bye');
 hashTable.set('seven', 'eleven');
 console.log(hashTable.get('seven'));
+console.log(hashTable.values());
