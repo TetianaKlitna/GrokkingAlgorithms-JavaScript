@@ -49,12 +49,44 @@ class Graph {
 
     return false;
   }
+
+  DFSrec(startVertex){
+    const res = [];
+    const visited = {};
+
+    const helper = (vertex) => {
+
+      if(!vertex) return;
+
+      visited[vertex] = true;
+      res.push(vertex);
+      
+      const neighbors = this.adjacencyList[vertex];
+      for(let i = 0; i < neighbors.length; i++){
+        if(!visited[neighbors[i]]) helper(neighbors[i]);
+      }
+    }
+
+    helper(startVertex)
+
+    return res;
+  }
 }
 
 const graph = new Graph();
 graph.addVertex('A');
 graph.addVertex('B');
+graph.addVertex('C');
+graph.addVertex('D');
+graph.addVertex('E');
+graph.addVertex('F');
+
 graph.addEdge('A', 'B');
-console.log(graph.adjacencyList['B']);
-graph.removeEdge('A', 'B');
-console.log(graph.adjacencyList);
+graph.addEdge('A', 'C');
+graph.addEdge('B', 'D');
+graph.addEdge('C', 'E');
+graph.addEdge('D', 'E');
+graph.addEdge('D', 'F');
+graph.addEdge('E', 'F');
+
+console.log(graph.DFSrec('F'));
