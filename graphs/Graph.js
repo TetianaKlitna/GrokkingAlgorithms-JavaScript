@@ -95,6 +95,36 @@ class Graph {
     }
     return res;
   }
+
+  BFS(start) {
+    if (!start) {
+      return [];
+    }
+
+    const res = [];
+    const queue = [start];
+    const visited = new Set();
+
+    while (queue.length !== 0) {
+      const vertex = queue.shift();
+
+      if (!visited.has(vertex)) {
+        res.push(vertex);
+        visited.add(vertex);
+      }
+
+      const neighbors = this.adjacencyList[vertex] || [];
+      for (let i = 0; i < neighbors.length; i++) {
+        if (!visited.has(neighbors[i])) {
+          res.push(neighbors[i]);
+          queue.push(neighbors[i]);
+          visited.add(neighbors[i]);
+        }
+      }
+    }
+
+    return res;
+  }
 }
 
 const graph = new Graph();
@@ -115,3 +145,4 @@ graph.addEdge('E', 'F');
 
 console.log(graph.DFSrec('F'));
 console.log(graph.DFSiter('F'));
+console.log(graph.BFS('A'));
