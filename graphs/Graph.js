@@ -50,25 +50,49 @@ class Graph {
     return false;
   }
 
-  DFSrec(startVertex){
+  DFSrec(startVertex) {
     const res = [];
     const visited = {};
 
     const helper = (vertex) => {
-
-      if(!vertex) return;
+      if (!vertex) return;
 
       visited[vertex] = true;
       res.push(vertex);
-      
+
       const neighbors = this.adjacencyList[vertex];
-      for(let i = 0; i < neighbors.length; i++){
-        if(!visited[neighbors[i]]) helper(neighbors[i]);
+      for (let i = 0; i < neighbors.length; i++) {
+        if (!visited[neighbors[i]]) helper(neighbors[i]);
+      }
+    };
+
+    helper(startVertex);
+
+    return res;
+  }
+
+  DFSiter(vertex) {
+    if (!vertex) {
+      return null;
+    }
+    const res = [];
+    const stack = [vertex];
+    const visited = new Set();
+
+    while (stack.length !== 0) {
+      const curr = stack.pop();
+      if (!visited.has(curr)) {
+        res.push(curr);
+        visited.add(curr);
+
+        const neighbors = this.adjacencyList[curr] || [];
+        for (let i = neighbors.length - 1; i >= 0; i--) {
+          if (!visited.has(neighbors[i])) {
+            stack.push(neighbors[i]);
+          }
+        }
       }
     }
-
-    helper(startVertex)
-
     return res;
   }
 }
@@ -90,3 +114,4 @@ graph.addEdge('D', 'F');
 graph.addEdge('E', 'F');
 
 console.log(graph.DFSrec('F'));
+console.log(graph.DFSiter('F'));
