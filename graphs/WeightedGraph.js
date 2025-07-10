@@ -138,4 +138,69 @@ class WeightedGraph {
 
     return false;
   }
+
+  Dijkstra(start, finish) {
+    const path = [];
+    const nodes = new PriorityQueue();
+    const dist = {};
+    const prev = {};
+    let smallest;
+
+    Object.keys(this.adjacencyList).forEach((curr) => {
+      const val = curr === start ? 0 : Infinity;
+      dist[curr] = val;
+      nodes.enqueue(curr, val);
+    });
+
+    while (nodes.values.length > 0) {
+      smallest = nodes.dequeue();
+
+      if (smallest.val === finish) {
+        let curr = smallest.val;
+        while (curr) {
+          path.push(curr);
+          curr = prev[curr];
+        }
+        break;
+      }
+
+      const neighbors = this.adjacencyList[smallest.val];
+      neighbors.forEach((neighbor) => {
+        const candidate = dist[smallest.val] + neighbor.weight;
+        if (candidate < dist[neighbor.vertex]) {
+          dist[neighbor.vertex] = candidate;
+          prev[neighbor.vertex] = smallest.val;
+          nodes.enqueue(neighbor.vertex, candidate);
+        }
+      });
+    }
+
+    return path.reverse();
+  }
 }
+
+var g = new WeightedGraph();
+
+g.addVertex('A');
+g.addVertex('Z');
+g.addVertex('C');
+g.addVertex('D');
+g.addVertex('E');
+g.addVertex('H');
+g.addVertex('Q');
+g.addVertex('G');
+
+g.addEdge('A', 'Z', 7);
+g.addEdge('A', 'C', 8);
+g.addEdge('Z', 'Q', 2);
+g.addEdge('C', 'G', 4);
+g.addEdge('D', 'Q', 8);
+g.addEdge('E', 'H', 1);
+g.addEdge('H', 'Q', 3);
+g.addEdge('Q', 'C', 6);
+g.addEdge('G', 'Q', 9);
+
+console.log(g.Dijkstra('A', 'E')); // ["A", "Z", "Q", "H", "E"]
+console.log(g.Dijkstra('A', 'Q')); // ["A", "Z", "Q"]
+console.log(g.Dijkstra('A', 'G')); // ["A", "C", "G"]
+console.log(g.Dijkstra('A', 'D')); // ["A", "Z", "Q", "D"]
