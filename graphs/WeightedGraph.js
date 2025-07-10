@@ -1,19 +1,78 @@
+class Node {
+  constructor(val, priority) {
+    this.val = val;
+    this.priority = priority;
+  }
+}
+
 class PriorityQueue {
   constructor() {
     this.values = [];
   }
 
   enqueue(val, priority) {
-    this.values.push({ val, priority });
-    this.sort();
+    const node = new Node(val, priority);
+    this.values.push(node);
+
+    const len = this.values.length;
+
+    let child = len - 1;
+    while (child > 0) {
+      const parent = Math.floor((child - 1) / 2);
+      if (this.values[child].priority >= this.values[parent].priority) break;
+
+      [this.values[child], this.values[parent]] = [
+        this.values[parent],
+        this.values[child],
+      ];
+      child = parent;
+    }
+
+    return this;
   }
 
   dequeue() {
-    return this.values.unshift();
-  }
+    if (this.values.length === 0) return undefined;
+    if (this.values.length === 1) return this.values.pop();
 
-  sort() {
-    this.values.sort((a, b) => a.priority - b.priority);
+    [this.values[0], this.values[this.values.length - 1]] = [
+      this.values[this.values.length - 1],
+      this.values[0],
+    ];
+    const deleted = this.values.pop();
+
+    let parent = 0;
+    let child = 0;
+    while (parent < this.values.length) {
+      const childLeft = 2 * parent + 1;
+      const childRight = 2 * parent + 2;
+
+      if (childLeft < this.values.length && childRight < this.values.length) {
+        child =
+          this.values[childLeft].priority < this.values[childRight].priority
+            ? childLeft
+            : childRight;
+      } else if (childLeft < this.values.length) {
+        child = childLeft;
+      } else if (childRight < this.values.length) {
+        child = childRight;
+      } else {
+        break;
+      }
+
+      if (this.values[parent].priority < this.values[child].priority) {
+        break;
+      }
+
+      [this.values[parent], this.values[child]] = [
+        this.values[child],
+        this.values[parent],
+      ];
+
+      parent = child;
+    }
+
+    return deleted;
   }
 }
 
