@@ -1,4 +1,4 @@
 Course 'JavaScript Algorithms and Data Structures Masterclass' Udemy
 https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass/
 
-https://www.udemy.com/certificate/UC-da0cb050-7f01-42fe-823e-389bed4d0bf1/
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/d8fa23ae-986c-4496-982c-81ccf955bffe" />
